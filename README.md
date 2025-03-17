@@ -38,4 +38,5 @@
         - Projects cannot exist outside a Team, so when the Team gets deleted, the [Projects must also get deleted.](https://github.com/uncg-csc340/sp25-mvc-demo2/blob/26b3456145a69da7c01c696e573b0ca46456af37/src/main/java/com/csc340/mvc_demo2/team/TeamController.java#L66)
         - Students may be unaffiliated, so when we delete a Team, we remove the affiliation by [setting the Team ID to null](https://github.com/uncg-csc340/sp25-mvc-demo2/blob/26b3456145a69da7c01c696e573b0ca46456af37/src/main/java/com/csc340/mvc_demo2/team/TeamController.java#L68) for each Student.
 - We also have a [Home Controller](https://github.com/uncg-csc340/sp25-mvc-demo2/blob/26b3456145a69da7c01c696e573b0ca46456af37/src/main/java/com/csc340/mvc_demo2/HomeController.java#L7) that handles our redirects. You would typically use this to load a home page or a dashboard.
-- 
+- Run the application: We are using Port 8081 instead of 8080 for this app (Just to demonstrate an example)
+  - `http://localhost:8081/`
