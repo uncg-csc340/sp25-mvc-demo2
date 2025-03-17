@@ -24,7 +24,7 @@
     - To make the process easier, we included an arcive file for a database, `mvc2-database.sql`.
     - You may import this database into your local MySQL server so you can have a copy of the database with some entries.
     - Click on the newly created `mvc2-database` database and look for the Import option at the top. Click Browse, select the archive file, and click Import.
-    - If everything works correctly, you should see 4 new tables created under the taskmanager database:
+    - If everything works correctly, you should see 4 new tables created under the mvc2-database database:
       - projects
       - students
       - teams
