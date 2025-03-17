@@ -28,7 +28,7 @@
       - projects
       - students
       - teams
-- Views are in subfolders, so when we reference them in the MVC Controller, we [include the subfolder name](https://github.com/uncg-csc340/sp25-mvc-demo2/blob/26b3456145a69da7c01c696e573b0ca46456af37/src/main/java/com/csc340/mvc_demo2/team/TeamController.java#L33).
+- Views are in [subfolders](https://github.com/uncg-csc340/sp25-mvc-demo2/tree/1c9b2eac1d3b0431d465cade4ff32d7a5334962d/src/main/resources/templates), so when we reference them in the MVC Controller, we [include the subfolder name](https://github.com/uncg-csc340/sp25-mvc-demo2/blob/26b3456145a69da7c01c696e573b0ca46456af37/src/main/java/com/csc340/mvc_demo2/team/TeamController.java#L33).
 - Foreign Keys
     - The Student entity has a foreign key pointing to the Team entity. This is a [`@ManyToOne`](https://github.com/uncg-csc340/sp25-mvc-demo2/blob/26b3456145a69da7c01c696e573b0ca46456af37/src/main/java/com/csc340/mvc_demo2/student/Student.java#L23) mapping. Many Students may belong to one Team. A Student may only be in one Team. Each Student in the database will have a column called team_id to identify which Team they belong to. This column may be null if the Student has not Team affiliation.
     - The Project entity has a foreign key pointing to the Team entity. This is also a [`@ManyToOne`](https://github.com/uncg-csc340/sp25-mvc-demo2/blob/26b3456145a69da7c01c696e573b0ca46456af37/src/main/java/com/csc340/mvc_demo2/project/Project.java#L15) mapping. Many Projects may belong to one Team. A Project may only belong to one Team. Each Project in the database will have a column called team_id to identify which Team it belongs to.
