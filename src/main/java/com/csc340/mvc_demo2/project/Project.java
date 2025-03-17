@@ -13,7 +13,7 @@ public class Project {
 
 
     @ManyToOne
-    @JoinColumn(name = "teamId")
+    @JoinColumn(name = "teamId", nullable = false)
     private Team team;
 
     @Column(nullable = false)
