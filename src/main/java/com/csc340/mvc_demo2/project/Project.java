@@ -12,7 +12,7 @@ public class Project {
     private int projectId;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "teamId")
     private Team team;
 
@@ -49,11 +49,11 @@ public class Project {
         this.projectId = projectId;
     }
 
-    public Team getGroup() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setGroup(Team team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 

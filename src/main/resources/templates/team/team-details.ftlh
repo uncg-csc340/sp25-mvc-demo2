@@ -63,17 +63,41 @@
                 </tr>
             </#list>
             </table>
-
-
         </div>
         <h1>Team Projects</h1>
-        <button class="btn btn-outline-primary" onclick="openForm()">Create New Team</button>
-        <form id="update-project" action="/projects/new" method="post" style="display:none">
+        <button class="btn btn-outline-primary" onclick="openForm()">Create New Team Project</button>
+        <form id="new-project" action="/projects/new" method="post" style="display:none">
+            <label for="team">Team: </label><input type="text" id="team" name="team.teamId" value="${team.teamId}" readonly/>
             <input type="text" id="title" name="title" placeholder="Title"/>
             <input type="text" id="description" name="description"  placeholder="Description"/>
+            <select id="status" name="status">
+                <option selected>Select Status</option>
+                <option value="new">New</option>
+                <option value="in-progress">In Progress</option>
+                <option value="review">Review</option>
+                <option value="done">Done</option>
+            </select>
             <button type="submit" class="btn btn-primary">Save</button>
             <button type="reset" class="btn btn-danger" onclick="closeForm()">Cancel</button>
         </form>
+        <div class="scrollable" style="height: 250px; overflow-y: auto; margin-bottom: 20px;">
+            <table class="table table-striped rounded-3 overflow-hidden">
+                <tr>
+                    <th>Project ID</th>
+                    <th>Project Title</th>
+                    <th>Project Status</th>
+                </tr>
+                <#list teamProjectList as project>
+                <tr>
+                    <td>
+                        <a href="/projects/${project.projectId?c}" style="color:#000000">${project.projectId?c}</a>
+                    </td>
+                    <td>${project.title}</td>
+                    <td>${project.status}</td>
+                </tr>
+            </#list>
+            </table>
+        </div>
     </div>
     <a href="/teams/delete/${teamId?c}" class="btn btn-danger">Delete
         Team</a>
@@ -83,11 +107,11 @@
 </div>
 <script>
     function openForm() {
-      document.getElementById("new-team").style.display = "block";
+      document.getElementById("new-project").style.display = "block";
     }
 
     function closeForm() {
-      document.getElementById("new-team").style.display = "none";
+      document.getElementById("new-project").style.display = "none";
     }
 </script>
 </body>

@@ -1,5 +1,8 @@
 package com.csc340.mvc_demo2.team;
 
+import com.csc340.mvc_demo2.project.Project;
+import com.csc340.mvc_demo2.project.ProjectService;
+import com.csc340.mvc_demo2.student.Student;
 import com.csc340.mvc_demo2.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,9 @@ public class TeamController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private ProjectService projectService;
+
 
     @GetMapping("/all")
     public Object getAllTeams(Model model) {
@@ -31,6 +37,7 @@ public class TeamController {
     public Object getTeamById(@PathVariable int teamId, Model model) {
         model.addAttribute("team", teamService.getTeamById(teamId));
         model.addAttribute("teamMembersList", studentService.getStudentsByTeam(teamId));
+        model.addAttribute("teamProjectList", projectService.getProjectsByTeam(teamId));
         model.addAttribute("title", "Team #: " + teamId);
         return "team/team-details";
     }
@@ -56,6 +63,12 @@ public class TeamController {
 
     @GetMapping("/delete/{teamId}")
     public Object deleteTeamById(@PathVariable int teamId) {
+        for (Project project : projectService.getProjectsByTeam(teamId))
+            projectService.deleteProjectById(project.getProjectId());
+        for (Student student : studentService.getStudentsByTeam(teamId)) {
+            student.setTeam(null);
+            studentService.addNewStudent(student);
+        }
         teamService.deleteTeamById(teamId);
         return "redirect:/teams/all";
     }

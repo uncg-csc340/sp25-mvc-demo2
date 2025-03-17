@@ -42,16 +42,18 @@
             <span style="float:right"> <a href="/projects/update/${projectId?c}"
                                           class="btn btn-primary">Edit Project</a></span>
             <h5 class="card-title">ID: ${project.projectId?c}</h5>
+            <p class="card-text"><a href="/teams/${project.team.teamId?c}" style="color:#000000">Team:
+                ${project.team.name}</a>
+            </p>
             <p class="card-text">Title: ${project.title}</p>
-            <p class="card-text">Team: ${project.team.name}</p>
             <p class="card-text">Status: ${project.status}</p>
 
-        <a href="/projects/delete/${projectId?c}" class="btn btn-danger">Delete
-            Student</a>
+            <a href="/projects/delete/${projectId?c}" class="btn btn-danger">Delete
+                Project</a>
 
-        <a href="/projects/all" class="btn btn-primary">Go back</a>
+            <a href="/projects/all" class="btn btn-primary">All Projects</a>
+        </div>
     </div>
-</div>
 
 </div>
 </body>
