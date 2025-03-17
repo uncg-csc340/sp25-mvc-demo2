@@ -7,14 +7,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-    <title>Project Update</title>
+    <title>Project List</title>
 
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
-
 <body>
-
 <!-- Begin Nav Bar -->
 <nav class="navbar navbar-expand-lg  navbar-dark" style="background-color: #799351;">
     <a class="navbar-brand" href="/students/all" style="margin: 10px;">
@@ -36,21 +34,13 @@
 
 <div class="container" style="margin-top: 15px;">
     <h1>${title}</h1>
-    <form id="update-project" action="/projects/update/${project.projectId?c}" method="post">
-        <label for="projectId">ID:</label><input type="text" id="projectId" name="projectId" value="${project.projectId?c}" readonly/>
-        <label for="team">Team: </label><input type="text" id="team" name="team.teamId" value="${project.team.teamId}" readonly/>
-        <label for="title">Title</label><input type="text" id="title" name="title" value="${project.title}" />
-        <label for="description">Description:</label><input type="text" id="description" name="description" value="${project.description}" />
-        <label for="status">Status</label><select id="status" name="status">
-            <option value="new">New</option>
-            <option value="in-progress">In Progress</option>
-            <option value="review">Review</option>
-            <option value="done">Done</option>
-        </select>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="/projects/${project.projectId?c}" class="btn btn-outline-danger" >Cancel</a>
-    </form>
 
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Uh Oh!</h4>
+        <hr>
+        <p class="mb-0">${message}</p>
+        <p class="mb-0">Go to: <a href="${redirect}">${redirect}</a></p>
+    </div>
 </div>
 </body>
 </html>

@@ -71,7 +71,7 @@
             <input type="text" id="title" name="title" placeholder="Title"/>
             <input type="text" id="description" name="description"  placeholder="Description"/>
             <select id="status" name="status">
-                <option selected>Select Status</option>
+                <option value="new" selected>Select Status</option>
                 <option value="new">New</option>
                 <option value="in-progress">In Progress</option>
                 <option value="review">Review</option>

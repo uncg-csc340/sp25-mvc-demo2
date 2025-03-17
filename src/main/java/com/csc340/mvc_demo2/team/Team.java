@@ -60,4 +60,13 @@ public class Team {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "teamId=" + teamId +
+                ", name='" + name + '\'' +
+                ", capacity=" + capacity +
+                '}';
+    }
 }

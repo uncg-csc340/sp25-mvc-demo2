@@ -117,18 +117,27 @@ public class StudentController {
     /**
      * Create a new Student entry.
      * http://localhost:8080/students/new
-     *
+     * <p>
      * We do not need the @RequestBody!
      *
      * @param student the new Student object.
      * @return the updated list of Students.
      */
     @PostMapping("/new")
-    public Object addNewStudent(Student student) {
-        //student.setGroup();
-        service.addNewStudent(student);
-        // return new ResponseEntity<>(service.getAllStudents(), HttpStatus.CREATED);
-        return "redirect:/students/all";
+    public Object addNewStudent(Student student, Model model) {
+        System.out.println(teamService.getTeamById(student.getTeam().getTeamId()).getCapacity());
+        System.out.println(service.getStudentsByTeam(student.getTeam().getTeamId()).size());
+        if (teamService.getTeamById(student.getTeam().getTeamId()).getCapacity() ==
+                service.getStudentsByTeam(student.getTeam().getTeamId()).size()) {
+            model.addAttribute("title", "Error");
+            model.addAttribute("message", "Team Full!");
+            model.addAttribute("redirect", "/students/all");
+            return "message";
+        } else {
+            service.addNewStudent(student);
+            return "redirect:/students/all";
+
+        }
 
     }
 
@@ -150,7 +159,7 @@ public class StudentController {
     /**
      * Update an existing Student object.
      * http://localhost:8080/students/update/2
-     *
+     * <p>
      * We do not need the @RequestBody!
      *
      * @param studentId the unique Student Id.

@@ -39,7 +39,7 @@
         <h5 class="card-header">${project.title}</h5>
 
         <div class="card-body">
-            <span style="float:right"> <a href="/projects/update/${projectId?c}"
+            <span style="float:right"> <a href="/projects/updateForm/${projectId?c}"
                                           class="btn btn-primary">Edit Project</a></span>
             <h5 class="card-title">ID: ${project.projectId?c}</h5>
             <p class="card-text"><a href="/teams/${project.team.teamId?c}" style="color:#000000">Team:

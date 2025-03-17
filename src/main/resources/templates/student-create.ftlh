@@ -36,11 +36,10 @@
 <div class="container" style="margin-top: 15px;">
     <h1>${title}</h1>
     <form id="new-student" action="/students/new" method="post">
-        <input type="text" id="name" name="name" placeholder="Name"/>
-        <input type="text" id="major" name="major" placeholder="Major"/>
-        <input type="number" id="gpa" name="gpa" step="0.01" placeholder="GPA"/>
-        <select id="team" name="team.teamId">
-            <option selected>Select Team</option>
+        <label for="name">Name</label><input type="text" id="name" name="name"/>
+        <label for="major">Major</label><input type="text" id="major" name="major"/>
+        <label for="gpa">GPA</label><input type="number" id="gpa" name="gpa" step="0.01"/>
+        <label for="team">Team</label><select id="team" name="team.teamId">
             <#list teamList as team>
             <option value="${team.teamId}">${team.name}</option>
         </#list>

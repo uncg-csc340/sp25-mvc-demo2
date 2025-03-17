@@ -19,8 +19,9 @@ public class Student {
     @Column(nullable = false)
     private double gpa;
 
+
     @ManyToOne
-    @JoinColumn(name = "teamId")
+    @JoinColumn(name = "teamId", nullable = true)
     private Team team;
 
 
@@ -88,6 +89,17 @@ public class Student {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", name='" + name + '\'' +
+                ", major='" + major + '\'' +
+                ", gpa=" + gpa +
+                ", team=" + team +
+                '}';
     }
 }
 
