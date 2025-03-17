@@ -46,6 +46,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Major</th>
+            <th>Actions</th>
         </tr>
         <#list studentList as student>
         <tr>
@@ -55,6 +56,10 @@
             <td>${student.name}</td>
             <td>
                 <a href="/students/major/${student.major}" style="color:#000000">${student.major}</a>
+            </td>
+            <td><a href="/students/update/${student.studentId?c}"
+                   class="btn btn-secondary">Edit</a>
+                <a href="/students/delete/${student.studentId?c}" class="btn btn-danger">Delete </a>
             </td>
         </tr>
         </#list>

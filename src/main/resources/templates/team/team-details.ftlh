@@ -86,6 +86,7 @@
                     <th>Project ID</th>
                     <th>Project Title</th>
                     <th>Project Status</th>
+                    <th>Actions</th>
                 </tr>
                 <#list teamProjectList as project>
                 <tr>
@@ -94,6 +95,11 @@
                     </td>
                     <td>${project.title}</td>
                     <td>${project.status}</td>
+                    <td>
+                        <a href="/projects/updateForm/${project.projectId?c}" class="btn btn-secondary">Edit</a>
+                        <a href="/projects/delete/${project.projectId?c}" class="btn btn-danger">Delete </a>
+                    </td>
+
                 </tr>
             </#list>
             </table>

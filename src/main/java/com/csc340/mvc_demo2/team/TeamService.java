@@ -1,9 +1,11 @@
 package com.csc340.mvc_demo2.team;
 
+import com.csc340.mvc_demo2.student.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
@@ -11,19 +13,31 @@ public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public List<Team> getAllTeams(){
+    @Autowired
+    private StudentRepository studentRepository;
+
+    public List<Team> getAllTeams() {
         return teamRepository.findAll();
     }
 
-    public Team getTeamById(int teamId){
+    public Team getTeamById(int teamId) {
         return teamRepository.findById(teamId).orElse(null);
     }
 
-    public void addNewTeam(Team team){
+    public void addNewTeam(Team team) {
         teamRepository.save(team);
     }
 
-    public void deleteTeamById(int teamId){
+    public void deleteTeamById(int teamId) {
         teamRepository.deleteById(teamId);
+    }
+
+    public List<Team> getTeamsWithSpace() {
+        List<Team> allTeams = getAllTeams();
+        return allTeams.stream().filter
+                        (team ->
+                                team.getCapacity() >
+                                        studentRepository.getStudentsByTeamId(team.getTeamId()).size())
+                .toList();
     }
 }

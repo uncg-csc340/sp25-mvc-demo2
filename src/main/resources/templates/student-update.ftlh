@@ -36,22 +36,25 @@
 <div class="container" style="margin-top: 15px;">
     <h1>${title}</h1>
     <form id="update-student" action="/students/update/${student.studentId?c}" method="post">
-        <label for="studentId">ID</label><input type="text" id="studentId" name="studentId" value="${student.studentId?c}" readonly/>
-        <label for="name">Name</label><input type="text" id="name" name="name" value="${student.name}" placeholder="Name"/>
-        <label for="major">Major</label><input type="text" id="major" name="major" value="${student.major}" placeholder="Major"/>
-        <label for="gpa">GPA</label><input type="number" id="gpa" name="gpa" step="0.01" value="${student.gpa}" placeholder="GPA"/>
+        <label for="studentId">ID</label><input type="text" id="studentId" name="studentId"
+                                                value="${student.studentId?c}" readonly/>
+        <label for="name">Name</label><input type="text" id="name" name="name" value="${student.name}"
+                                             placeholder="Name"/>
+        <label for="major">Major</label><input type="text" id="major" name="major" value="${student.major}"
+                                               placeholder="Major"/>
+        <label for="gpa">GPA</label><input type="number" id="gpa" name="gpa" step="0.01" value="${student.gpa}"
+                                           placeholder="GPA"/>
         <select id="team" name="team.teamId">
+            <option value="-1">NO TEAM</option>
             <#if student.team??>
-                <option selected value="${student.team.teamId}">Select Team</option>
-            <#else>
-                <option selected>Select Team</option>
+                <option selected value="${student.team.teamId}">${student.team.name}</option>
             </#if>
             <#list teamList as team>
-            <option value="${team.teamId}">${team.name}</option>
-        </#list>
-        </select>
-        <button type="submit" class="btn btn-primary">Save</button>
-       <a href="/students/${student.studentId?c}" class="btn btn-outline-danger" >Cancel</a>
+                <option value="${team.teamId}">${team.name}</option>
+            </#list>
+    </select>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/students/${student.studentId?c}" class="btn btn-outline-danger">Cancel</a>
     </form>
 
 </div>

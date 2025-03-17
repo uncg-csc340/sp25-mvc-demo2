@@ -40,12 +40,13 @@
         <label for="major">Major</label><input type="text" id="major" name="major"/>
         <label for="gpa">GPA</label><input type="number" id="gpa" name="gpa" step="0.01"/>
         <label for="team">Team</label><select id="team" name="team.teamId">
-            <#list teamList as team>
-            <option value="${team.teamId}">${team.name}</option>
-        </#list>
+        <option selected value="-1">Select Team</option>
+        <#list teamList as team>
+        <option value="${team.teamId}">${team.name}</option>
+    </#list>
         </select>
         <button type="submit" class="btn btn-primary">Save</button>
-       <a href="/students/all" class="btn btn-outline-danger" >Cancel</a>
+        <a href="/students/all" class="btn btn-outline-danger">Cancel</a>
     </form>
 
 </div>

@@ -21,7 +21,7 @@ public class Student {
 
 
     @ManyToOne
-    @JoinColumn(name = "teamId", nullable = true)
+    @JoinColumn(name = "teamId")
     private Team team;
 
 

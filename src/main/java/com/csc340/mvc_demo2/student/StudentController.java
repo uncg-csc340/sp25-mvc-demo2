@@ -3,10 +3,12 @@ package com.csc340.mvc_demo2.student;
 
 import com.csc340.mvc_demo2.team.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -110,7 +112,7 @@ public class StudentController {
         Student student = new Student();
         model.addAttribute("student", student);
         model.addAttribute("title", "Create New Student");
-        model.addAttribute("teamList", teamService.getAllTeams());
+        model.addAttribute("teamList", teamService.getTeamsWithSpace());
         return "student-create";
     }
 
@@ -125,20 +127,10 @@ public class StudentController {
      */
     @PostMapping("/new")
     public Object addNewStudent(Student student, Model model) {
-        System.out.println(teamService.getTeamById(student.getTeam().getTeamId()).getCapacity());
-        System.out.println(service.getStudentsByTeam(student.getTeam().getTeamId()).size());
-        if (teamService.getTeamById(student.getTeam().getTeamId()).getCapacity() ==
-                service.getStudentsByTeam(student.getTeam().getTeamId()).size()) {
-            model.addAttribute("title", "Error");
-            model.addAttribute("message", "Team Full!");
-            model.addAttribute("redirect", "/students/all");
-            return "message";
-        } else {
-            service.addNewStudent(student);
-            return "redirect:/students/all";
-
-        }
-
+        if (student.getTeam().getTeamId() == -1)
+            student.setTeam(null);
+        service.addNewStudent(student);
+        return "redirect:/students/all";
     }
 
     /**
@@ -151,7 +143,7 @@ public class StudentController {
     @GetMapping("/update/{studentId}")
     public String showUpdateForm(@PathVariable int studentId, Model model) {
         model.addAttribute("student", service.getStudentById(studentId));
-        model.addAttribute("teamList", teamService.getAllTeams());
+        model.addAttribute("teamList", teamService.getTeamsWithSpace());
         model.addAttribute("title", "Update Student");
         return "student-update";
     }
@@ -168,6 +160,8 @@ public class StudentController {
      */
     @PostMapping("/update/{studentId}")
     public Object updateStudent(@PathVariable int studentId, Student student) {
+        if (student.getTeam().getTeamId() == -1)
+            student.setTeam(null);
         service.updateStudent(studentId, student);
         //return new ResponseEntity<>(service.getStudentById(studentId), HttpStatus.CREATED);
         return "redirect:/students/" + studentId;
