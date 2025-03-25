@@ -1,6 +1,7 @@
 package com.csc340.mvc_demo2.project;
 
 import com.csc340.mvc_demo2.team.Team;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
@@ -12,8 +13,9 @@ public class Project {
     private int projectId;
 
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "teamId", nullable = false)
+    @JsonBackReference
     private Team team;
 
     @Column(nullable = false)
@@ -57,12 +59,11 @@ public class Project {
         this.team = team;
     }
 
-    @Nonnull
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(@Nonnull String title) {
+    public void setTitle( String title) {
         this.title = title;
     }
 
@@ -74,12 +75,22 @@ public class Project {
         this.description = description;
     }
 
-    @Nonnull
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(@Nonnull String status) {
+    public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId=" + projectId +
+                ", team=" + team +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

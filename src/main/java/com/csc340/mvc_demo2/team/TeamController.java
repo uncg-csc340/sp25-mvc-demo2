@@ -5,12 +5,10 @@ import com.csc340.mvc_demo2.project.ProjectService;
 import com.csc340.mvc_demo2.student.Student;
 import com.csc340.mvc_demo2.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/teams")
@@ -27,50 +25,39 @@ public class TeamController {
 
 
     @GetMapping("/all")
-    public Object getAllTeams(Model model) {
-        model.addAttribute("teamsList", teamService.getAllTeams());
-        model.addAttribute("title", "All Teams");
-        return "team/team-list";
+    public Object getAllTeams() {
+                return new ResponseEntity<>(teamService.getAllTeams(), HttpStatus.OK);
     }
 
     @GetMapping("/{teamId}")
-    public Object getTeamById(@PathVariable int teamId, Model model) {
-        model.addAttribute("team", teamService.getTeamById(teamId));
-        model.addAttribute("teamMembersList", studentService.getStudentsByTeam(teamId));
-        model.addAttribute("teamProjectList", projectService.getProjectsByTeam(teamId));
-        model.addAttribute("title", "Team #: " + teamId);
-        return "team/team-details";
+    public Object getTeamById(@PathVariable int teamId) {
+        return new ResponseEntity<>(teamService.getTeamById(teamId), HttpStatus.OK);
     }
 
-    @PostMapping("/new")
-    public Object addNewTeam(Team team) {
+    @PostMapping("/register")
+    public Object addNewTeam(@RequestBody Team team) {
         teamService.addNewTeam(team);
-        return "redirect:/teams/all";
+        return new ResponseEntity<>("New Team Successfully Created!", HttpStatus.CREATED);
     }
 
-    @GetMapping("/update/{teamId}")
-    public Object showUpdateForm(@PathVariable int teamId, Model model) {
-        model.addAttribute("team", teamService.getTeamById(teamId));
-        model.addAttribute("title", "Update Team #: " + teamId);
-        return "team/team-update";
-    }
 
     @PostMapping("/update/{teamId}")
-    public Object updateTeam(@PathVariable int teamId, Team team) {
+    public Object updateTeam(@PathVariable int teamId, @RequestBody Team team) {
         teamService.addNewTeam(team);
-        return "redirect:/teams/" + teamId;
+        return new ResponseEntity<>(teamService.getTeamById(teamId), HttpStatus.CREATED);
     }
 
-    @GetMapping("/delete/{teamId}")
+    @DeleteMapping("/delete/{teamId}")
     public Object deleteTeamById(@PathVariable int teamId) {
+        //Or use CASCADE to handle this.
         for (Project project : projectService.getProjectsByTeam(teamId))
             projectService.deleteProjectById(project.getProjectId());
         for (Student student : studentService.getStudentsByTeam(teamId)) {
             student.setTeam(null);
-            studentService.addNewStudent(student);
+            studentService.updateStudent(student);
         }
         teamService.deleteTeamById(teamId);
-        return "redirect:/teams/all";
+        return new ResponseEntity<>(teamService.getAllTeams(), HttpStatus.OK);
     }
 
 

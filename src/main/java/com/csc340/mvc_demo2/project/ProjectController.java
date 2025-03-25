@@ -1,58 +1,53 @@
 package com.csc340.mvc_demo2.project;
 
+import com.csc340.mvc_demo2.team.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/projects")
 public class ProjectController {
 
     @Autowired
     public ProjectService projectService;
 
+    @Autowired
+    public TeamService teamService;
+
+
+
     @GetMapping("/all")
-    public Object getAllProjects(Model model){
-        model.addAttribute("projectList", projectService.getAllProjects());
-        model.addAttribute("title", "All Projects");
-        return "project/project-list";
+    public Object getAllProjects() {
+
+        return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
     }
 
     @GetMapping("/{projectId}")
-    public Object getProjectById(@PathVariable int projectId, Model model){
-        model.addAttribute("project", projectService.getProjectById(projectId));
-        model.addAttribute("title", "Project #: " + projectId);
-        return "project/project-details";
+    public Object getProjectById(@PathVariable int projectId) {
+        return new ResponseEntity<>(projectService.getProjectById(projectId), HttpStatus.OK);
     }
 
-    @PostMapping("/new")
-    public Object addNewProject(Project project){
+    @PostMapping("/add-team-project")
+    public Object addNewProject(@RequestBody Project project) {
+        System.out.println(project.toString());
         projectService.addNewProject(project);
-        return "redirect:/teams/"+project.getTeam().getTeamId();
-    }
-
-    @GetMapping("/updateForm/{projectId}")
-    public Object showUpdateForm(@PathVariable int projectId,  Model model){
-        model.addAttribute("project", projectService.getProjectById(projectId));
-        model.addAttribute("title", "Update Project");
-        return "project/project-update";
+        int projectTeamId=project.getTeam().getTeamId();
+        return new ResponseEntity<>(teamService.getTeamById(projectTeamId), HttpStatus.OK);
     }
 
     @PostMapping("/update/{projectId}")
-    public Object updateProject(@PathVariable int projectId, Project project){
+    public Object updateProject(@PathVariable int projectId, Project project) {
         projectService.addNewProject(project);
-        return "redirect:/projects/" + projectId;
+        return new ResponseEntity<>(projectService.getProjectById(projectId), HttpStatus.OK);
     }
 
-        @GetMapping("/delete/{projectId}")
-    public Object deleteProject(@PathVariable int projectId){
-        Project project = projectService.getProjectById(projectId);
+    @DeleteMapping("/delete/{projectId}")
+    public Object deleteProject(@PathVariable int projectId) {
+        int projectTeamId= projectService.getProjectById(projectId).getTeam().getTeamId();
         projectService.deleteProjectById(projectId);
-        return "redirect:/teams/"+project.getTeam().getTeamId();
+        return new ResponseEntity<>(teamService.getTeamById(projectTeamId), HttpStatus.OK);
     }
 
 }

@@ -1,9 +1,13 @@
 package com.csc340.mvc_demo2.team;
 
+import com.csc340.mvc_demo2.project.Project;
 import com.csc340.mvc_demo2.student.Student;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -17,6 +21,13 @@ public class Team {
 
     @Column(nullable = false)
     private int capacity;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "team")
+
+    @JsonManagedReference
+    private List<Project> projects
+            = new ArrayList<>();
 
 
     public Team() {
@@ -59,6 +70,14 @@ public class Team {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     @Override

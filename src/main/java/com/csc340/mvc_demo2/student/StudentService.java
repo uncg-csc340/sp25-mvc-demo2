@@ -86,11 +86,9 @@ public class StudentService {
     /**
      * Update an existing Student.
      *
-     * @param studentId the unique Student Id.
      * @param student   the new Student details.
      */
-    public void updateStudent(int studentId, Student student) {
-        //Technically the 4 lines above are not necessary because the save method merges by default.
+    public void updateStudent( Student student) {
         studentRepository.save(student);
     }
 
