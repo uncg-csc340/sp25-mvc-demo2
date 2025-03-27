@@ -17,7 +17,7 @@
     - Click on the Home icon to open the localhost server on your browser.
     - Go to Database Tools and open phpMyAdmin to start up the MySQL Dashboard.
     - Ensure the database that you need is available. Either
-      - Create a database called `student-database`
+      - Create a database called `mvc2-database`
       - OR edit `datasource.url` to point to a database that you do have.
   - Verify your username and password is spelled correctly in the properties file.
   - Import sample database (optional)
